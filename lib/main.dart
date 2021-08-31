@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import './styles/my_colors.dart';
 import './screens/product_overview.dart';
 
 void main() => runApp(MyApp());
@@ -9,7 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MyShop',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: MyColors.Mauve,
+        accentColor: MyColors.Sapphire,
+        fontFamily: 'Lato',
       ),
       home: ProductOverview(),
     );
