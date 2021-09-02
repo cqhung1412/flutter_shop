@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/providers/orders.dart';
 import 'package:provider/provider.dart';
 
 import 'styles/my_colors.dart';
@@ -8,6 +7,7 @@ import 'screens/product_detail_screen.dart';
 import 'screens/cart_screen.dart';
 import 'providers/products.dart';
 import 'providers/cart.dart';
+import 'providers/orders.dart';
 
 void main() => runApp(MyApp());
 
