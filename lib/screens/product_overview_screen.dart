@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart.dart';
-import '../providers/products.dart';
+// import '../providers/products.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
+import '../widgets/app_drawer.dart';
+import './cart_screen.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -19,7 +20,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productContainer = Provider.of<Products>(context, listen: false);
+    // final productContainer = Provider.of<Products>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Bearstore'),
@@ -60,6 +61,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: ProductsGrid(_showFavoritesOnly),
     );
   }

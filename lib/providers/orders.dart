@@ -18,7 +18,7 @@ class Orders with ChangeNotifier {
   List<OrderItem> _items = [];
 
   List<OrderItem> get items {
-    return [...items];
+    return [..._items];
   }
 
   void addOrder(List<CartItem> cartProducts, double total) {
