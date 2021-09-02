@@ -43,7 +43,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             icon: Icon(
               Icons.more_vert,
             ),
-          )
+          ),
         ],
       ),
       body: ProductsGrid(_showFavoritesOnly),
