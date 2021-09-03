@@ -45,12 +45,23 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
+      var url = _imageUrlController.text;
+      if (url.isEmpty ||
+          !url.startsWith(RegExp(
+            r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?",
+            caseSensitive: false,
+          )) ||
+          !url.endsWith('.png') ||
+          !url.endsWith('.jpg') ||
+          !url.endsWith('.jpeg')) {
+        return;
+      }
       setState(() {});
     }
   }
 
   void _saveForm() {
-    if (!_formStateKey.currentState!.validate()) return;
+    // if (!_formStateKey.currentState!.validate()) return;
     _formStateKey.currentState!.save();
     print(_editedProduct.description);
   }
@@ -71,6 +82,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formStateKey,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -106,6 +118,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   focusNode: _priceFocusNode,
                   onFieldSubmitted: (_) =>
                       Focus.of(context).requestFocus(_descFocusNode),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Pls enter a price!';
+                    }
+                    if (double.tryParse(value) == null) {
+                      return 'Pls enter a valid number!';
+                    }
+                    if (double.parse(value) <= 0) {
+                      return 'Pls enter a number greater than zero!';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     _editedProduct = Product(
                       id: _editedProduct.id,
@@ -124,6 +148,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.multiline,
                   focusNode: _descFocusNode,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Pls enter a description for your product!';
+                    }
+                    if (value.length < 10) {
+                      return 'Should be at least 10 characters!';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     _editedProduct = Product(
                       id: _editedProduct.id,
@@ -170,6 +203,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           setState(() {});
                         },
                         onFieldSubmitted: (_) => _saveForm(),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Pls enter an image URL!';
+                          }
+                          if (!value.startsWith(RegExp(
+                            r"(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?",
+                            caseSensitive: false,
+                          ))) {
+                            return 'Pls enter a valid image URL!';
+                          }
+                          return null;
+                        },
                         onSaved: (value) {
                           _editedProduct = Product(
                             id: _editedProduct.id,
