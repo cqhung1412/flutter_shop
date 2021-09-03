@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'MyShop',
+        title: 'Bearstore',
         theme: ThemeData(
           primarySwatch: MyColors.Sapphire,
           accentColor: MyColors.Mauve,
