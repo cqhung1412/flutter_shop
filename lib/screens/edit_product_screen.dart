@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/products.dart';
 import '../providers/cart.dart';
 import '../providers/product.dart';
 
@@ -63,7 +64,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void _saveForm() {
     // if (!_formStateKey.currentState!.validate()) return;
     _formStateKey.currentState!.save();
-    print(_editedProduct.description);
+    Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
